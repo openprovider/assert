@@ -1,7 +1,7 @@
 Go Assert
 =========
 
-A assert package for interface/json values have use in Go (golang)
+A simple Assert package for interface/json values have use in Go (golang)
 
 [![Build Status](https://travis-ci.org/takama/assert.png?branch=master)](https://travis-ci.org/takama/assert)
 [![GoDoc](https://godoc.org/github.com/takama/assert?status.svg)](https://godoc.org/github.com/takama/assert)
