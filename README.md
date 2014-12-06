@@ -6,10 +6,10 @@ A assert package for interface/json values have use in Go (golang)
 [![Build Status](https://travis-ci.org/takama/assert.png?branch=master)](https://travis-ci.org/takama/assert)
 [![GoDoc](https://godoc.org/github.com/takama/assert?status.svg)](https://godoc.org/github.com/takama/assert)
 
-This package helps compare values of undefined types like interface{}
-Convenient using with JSON values (float, integer, string, bool, nil)
+This package helps compare values of undefined types like interface{}.
+Convenient using with JSON values (float, integer, string, bool, nil).
 The package is intended not only for testing purposes.
-The package allows compare all float and int values between each other
+The package allows compare all float and int values between each other.
 
 ### Example
 
@@ -48,7 +48,10 @@ func main() {
 	if err := json.Unmarshal([]byte(exampleJSON), &persons); err == nil {
 		pesronA := persons["personA"].(map[string]interface{})
 		pesronB := persons["personB"].(map[string]interface{})
-		fmt.Println("Comparing of a personal details:", pesronA["name"], "and", pesronB["name"])
+		fmt.Println(
+			"Comparing of a personal details:",
+			pesronA["name"], "and", pesronB["name"],
+		)
 		if assert.Equal(pesronA["age"], pesronB["age"]) {
 			fmt.Println("Persons of the same age")
 		}
@@ -61,10 +64,12 @@ func main() {
 		if assert.NotEqual(pesronA["married"], pesronB["married"]) {
 			fmt.Println("Persons have a different marital status")
 		}
-		if assert.In("cooking", pesronA["hobby"]) && assert.In("cooking", pesronB["hobby"]) {
+		if assert.In("cooking", pesronA["hobby"]) &&
+			assert.In("cooking", pesronB["hobby"]) {
 			fmt.Println("Both persons like to cook")
 		}
-		if assert.In("dancing", pesronA["hobby"]) && assert.NotIn("dancing", pesronB["hobby"]) {
+		if assert.In("dancing", pesronA["hobby"]) &&
+			assert.NotIn("dancing", pesronB["hobby"]) {
 			fmt.Println("Only", pesronA["name"], "likes to dance")
 		}
 	}
