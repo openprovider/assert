@@ -73,7 +73,7 @@ Example 1:
 		}
 	}
 
-A assert package for interface/json values
+A simple Assert package for interface/json values
 */
 package assert
 
