@@ -11,6 +11,26 @@ Convenient using with JSON values (float, integer, string, bool, nil).
 The package is intended not only for testing purposes.
 The package allows compare all float and int values between each other.
 
+### Types and supported methods
+
+| Type      | Equal/NotEqual | Less/Greater | In/NotIn |    JSON <-> Go     |
+| --------- |:--------------:|:------------:|:--------:|:------------------:|
+| float32   | X              | X            | X        | number <-> float64 |
+| float64   | X              | X            | X        | number <-> float64 |
+| int       | X              | X            | X        | number <-> float64 |
+| uint      | X              | X            | X        | number <-> float64 |
+| int8      | X              | X            | X        | number <-> float64 |
+| uint8     | X              | X            | X        | number <-> float64 |
+| int16     | X              | X            | X        | number <-> float64 |
+| uint16    | X              | X            | X        | number <-> float64 |
+| int32     | X              | X            | X        | number <-> float64 |
+| uint32    | X              | X            | X        | number <-> float64 |
+| int64     | X              | X            | X        | number <-> float64 |
+| uint64    | X              | X            | X        | number <-> float64 |
+| string    | X              | X            | X        | string <-> string  |
+| bool      | X              |              |          | boolean <-> bool   |
+| nil       | X              |              |          | null <-> nil       |
+
 ### Example
 
 ```go
