@@ -30,31 +30,31 @@ func main() {
 
 	persons := make(map[string]interface{}, 0)
 	if err := json.Unmarshal([]byte(exampleJSON), &persons); err == nil {
-		pesronA := persons["personA"].(map[string]interface{})
-		pesronB := persons["personB"].(map[string]interface{})
+		personA := persons["personA"].(map[string]interface{})
+		personB := persons["personB"].(map[string]interface{})
 		fmt.Println(
 			"Comparing of a personal details:",
-			pesronA["name"], "and", pesronB["name"],
+			personA["name"], "and", personB["name"],
 		)
-		if assert.Equal(pesronA["age"], pesronB["age"]) {
+		if assert.Equal(personA["age"], personB["age"]) {
 			fmt.Println("Persons of the same age")
 		}
-		if assert.GreaterThan(pesronA["height"], pesronB["height"]) {
-			fmt.Println(pesronA["name"], "higher than", pesronB["name"])
+		if assert.GreaterThan(personA["height"], personB["height"]) {
+			fmt.Println(personA["name"], "higher than", personB["name"])
 		}
-		if assert.LessThan(pesronB["weight"], pesronA["weight"]) {
-			fmt.Println(pesronB["name"], "weighs less than", pesronA["name"])
+		if assert.LessThan(personB["weight"], personA["weight"]) {
+			fmt.Println(personB["name"], "weighs less than", personA["name"])
 		}
-		if assert.NotEqual(pesronA["married"], pesronB["married"]) {
+		if assert.NotEqual(personA["married"], personB["married"]) {
 			fmt.Println("Persons have a different marital status")
 		}
-		if assert.In("cooking", pesronA["hobby"]) &&
-			assert.In("cooking", pesronB["hobby"]) {
+		if assert.In("cooking", personA["hobby"]) &&
+			assert.In("cooking", personB["hobby"]) {
 			fmt.Println("Both persons like to cook")
 		}
-		if assert.In("dancing", pesronA["hobby"]) &&
-			assert.NotIn("dancing", pesronB["hobby"]) {
-			fmt.Println("Only", pesronA["name"], "likes to dance")
+		if assert.In("dancing", personA["hobby"]) &&
+			assert.NotIn("dancing", personB["hobby"]) {
+			fmt.Println("Only", personA["name"], "likes to dance")
 		}
 	}
 }
