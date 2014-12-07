@@ -6,7 +6,7 @@ A simple Assert package for interface/json values have use in Go (golang)
 [![Build Status](https://travis-ci.org/takama/assert.png?branch=master)](https://travis-ci.org/takama/assert)
 [![GoDoc](https://godoc.org/github.com/takama/assert?status.svg)](https://godoc.org/github.com/takama/assert)
 
-This package helps compare values of undefined types like interface{}.
+This package helps to compare values of undefined types like interface{}.
 Convenient using with JSON values (float, integer, string, bool, nil).
 The package is intended not only for testing purposes.
 The package allows compare all float and int values between each other.

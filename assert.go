@@ -5,7 +5,7 @@
 /*
 Package assert 0.1.0
 
-This package helps compare values of undefined types like interface{}.
+This package helps to compare values of undefined types like interface{}.
 Convenient using with JSON values (float, integer, string, bool, nil).
 The package is intended not only for testing purposes.
 The package allows compare all float and int values between each other.
