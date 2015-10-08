@@ -6,9 +6,9 @@
 Package assert 0.1.0
 
 This package helps to compare values of undefined types like interface{}.
-Convenient using with JSON values (float, integer, string, bool, nil).
+Convenient using with JSON values (json.Number/float64, string, bool, nil).
 The package is intended not only for testing purposes.
-The package allows compare all float and int values between each other.
+The package allows compare ambiguous values between each other.
 
 Example 1:
 
@@ -77,6 +77,10 @@ A simple Assert package for interface/json values
 */
 package assert
 
+import (
+	"encoding/json"
+)
+
 // Equal checks if values equal to each other
 func Equal(left, right interface{}) bool {
 	return isCompareTrue(equal, left, right)
@@ -133,9 +137,148 @@ func isCompareTrue(comparison uint8, valueLeft, valueRight interface{}) bool {
 		return true
 	}
 	switch vLeft := valueLeft.(type) {
+	case json.Number:
+		if left, err := vLeft.Float64(); err == nil {
+			switch vRight := valueRight.(type) {
+			case json.Number:
+				if right, err := vRight.Float64(); err == nil {
+					switch comparison {
+					case equal:
+						if left == right {
+							return true
+						}
+					case notEqual:
+						if left != right {
+							return true
+						}
+					case lessThan:
+						if left < right {
+							return true
+						}
+					case greaterThan:
+						if left > right {
+							return true
+						}
+					case lessEqual:
+						if left <= right {
+							return true
+						}
+					case greaterEqual:
+						if left >= right {
+							return true
+						}
+					}
+				}
+			case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
+				right := float(valueRight)
+				switch comparison {
+				case equal:
+					if left == right {
+						return true
+					}
+				case notEqual:
+					if left != right {
+						return true
+					}
+				case lessThan:
+					if left < right {
+						return true
+					}
+				case greaterThan:
+					if left > right {
+						return true
+					}
+				case lessEqual:
+					if left <= right {
+						return true
+					}
+				case greaterEqual:
+					if left >= right {
+						return true
+					}
+				}
+			case []interface{}:
+				switch comparison {
+				case in:
+					for _, v := range vRight {
+						switch value := v.(type) {
+						case json.Number:
+							if item, err := value.Float64(); err == nil && item == left {
+								return true
+							}
+						case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
+							item := float(v)
+							if item == left {
+								return true
+							}
+						}
+					}
+				case notIn:
+					for _, v := range vRight {
+						switch value := v.(type) {
+						case json.Number:
+							if item, err := value.Float64(); err == nil && item == left {
+								return false
+							}
+						case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
+							item := float(v)
+							if item == left {
+								return false
+							}
+						}
+					}
+					return true
+				}
+			case []json.Number:
+				switch comparison {
+				case in:
+					for _, value := range vRight {
+						if item, err := value.Float64(); err == nil && item == left {
+							return true
+						}
+					}
+				case notIn:
+					for _, value := range vRight {
+						if item, err := value.Float64(); err == nil && item == left {
+							return false
+						}
+					}
+					return true
+				}
+			}
+		}
 	case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
 		left := float(valueLeft)
 		switch vRight := valueRight.(type) {
+		case json.Number:
+			if right, err := vRight.Float64(); err == nil {
+				switch comparison {
+				case equal:
+					if left == right {
+						return true
+					}
+				case notEqual:
+					if left != right {
+						return true
+					}
+				case lessThan:
+					if left < right {
+						return true
+					}
+				case greaterThan:
+					if left > right {
+						return true
+					}
+				case lessEqual:
+					if left <= right {
+						return true
+					}
+				case greaterEqual:
+					if left >= right {
+						return true
+					}
+				}
+			}
 		case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
 			right := float(valueRight)
 			switch comparison {
@@ -168,7 +311,11 @@ func isCompareTrue(comparison uint8, valueLeft, valueRight interface{}) bool {
 			switch comparison {
 			case in:
 				for _, v := range vRight {
-					switch v.(type) {
+					switch value := v.(type) {
+					case json.Number:
+						if item, err := value.Float64(); err == nil && item == left {
+							return true
+						}
 					case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
 						item := float(v)
 						if item == left {
@@ -178,7 +325,11 @@ func isCompareTrue(comparison uint8, valueLeft, valueRight interface{}) bool {
 				}
 			case notIn:
 				for _, v := range vRight {
-					switch v.(type) {
+					switch value := v.(type) {
+					case json.Number:
+						if item, err := value.Float64(); err == nil && item == left {
+							return false
+						}
 					case float32, float64, int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64:
 						item := float(v)
 						if item == left {
@@ -202,6 +353,22 @@ func isCompareTrue(comparison uint8, valueLeft, valueRight interface{}) bool {
 				for _, v := range vr {
 					item := float(v)
 					if item == left {
+						return false
+					}
+				}
+				return true
+			}
+		case []json.Number:
+			switch comparison {
+			case in:
+				for _, value := range vRight {
+					if item, err := value.Float64(); err == nil && item == left {
+						return true
+					}
+				}
+			case notIn:
+				for _, value := range vRight {
+					if item, err := value.Float64(); err == nil && item == left {
 						return false
 					}
 				}
