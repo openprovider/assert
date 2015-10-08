@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file.
 
 /*
-Package assert 0.1.0
+Package assert 0.2.0
 
 This package helps to compare values of undefined types like interface{}.
 Convenient using with JSON values (json.Number/float64, string, bool, nil).
