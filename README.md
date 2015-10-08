@@ -9,7 +9,7 @@ A simple Assert package for interface/json values have use in Go (golang)
 This package helps to compare values of undefined types like interface{}.
 Convenient using with JSON values (json.Number/float64, string, bool, nil).
 The package is intended not only for testing purposes.
-The package allows compare all float and int values between each other.
+The package allows compare ambiguous values between each other.
 
 ### Types and supported methods
 
