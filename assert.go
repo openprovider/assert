@@ -1,9 +1,9 @@
-// Copyright 2014 Igor Dolzhikov. All rights reserved.
+// Copyright 2015 Openprovider Authors. All rights reserved.
 // Use of this source code is governed by a license
 // that can be found in the LICENSE file.
 
 /*
-Package assert 0.2.0
+Package assert 0.3.0
 
 This package helps to compare values of undefined types like interface{}.
 Convenient using with JSON values (json.Number/float64, string, bool, nil).
@@ -18,7 +18,7 @@ Example 1:
 		"encoding/json"
 		"fmt"
 
-		"github.com/takama/assert"
+		"github.com/openprovider/assert"
 	)
 
 	func main() {
