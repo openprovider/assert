@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/takama/assert"
+	"github.com/openprovider/assert"
 )
 
 func main() {
